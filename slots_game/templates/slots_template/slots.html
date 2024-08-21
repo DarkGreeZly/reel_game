@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slots game</title>
+        <link rel="stylesheet" href={% static "slots_static/slots.css" %}>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>        
+        <script src={% static "slots_static/slots.js" %}></script> 
+    </head>
+    <body>
+    <div class="win-window">
+        <h1 class="window-headers">WIN</h1> 
+        <img src={% static "slots_static/horns.png" %} alt="" class="win-image">
+        <h3 class="window-headers">Знижка 20% на рога</h3>
+        <h3 class="window-headers">Orginizer</h3>
+        <h3 class="window-headers">ТОВ Рога і копита</h3>
+        <h3 class="window-headers">Links</h3>
+        <button id="close-btn" class="close-btn window-headers">Close</button>
+    </div>
+    <div class="win-message-container">
+        <span class="greeting-message">Приємної гри!</span>
+        <span class="win-message">Виграш: <span class="win-text"></span>!</span>
+    </div>
+    <div id="stage" class="perspective-on">
+    
+        <div id="rotate">
+            <div class="triangle triangle_left"></div>
+            <div class="curve left"></div>
+            <div id="ring1" class="ring"></div>
+            <div id="ring2" class="ring"></div>
+            <div id="ring3" class="ring"></div>
+            <div class="curve right"></div>
+            <div class="triangle triangle_right"></div>
+            <div class="spin-button"><button class="go"></button></div>
+        </div>
+    </div>
+    <div class="count-spins-container">
+        <span class="count-spins">Кількість спроб: <span class="count"></span></span>
+    </div>
+
+    <!-- <div>
+          <label>
+                <input type="checkbox" id="xray">
+                Show inner workings
+          </label>
+          <label>
+                <input type="checkbox" id="perspective">
+                Toggle perspective
+          </label>
+    </div> -->
+
+</body>
+</html>

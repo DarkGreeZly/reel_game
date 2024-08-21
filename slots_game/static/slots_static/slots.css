@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ultra&display=swap');
+html {
+  height: 100%;
+}
+
+@media (min-width: 992px) {
+  body {
+    background-image: url("back_pc.png");
+  }
+  .spin-button {
+    position: absolute;
+    margin-left: 85%;
+    padding-top: 25px;
+  }
+
+  #rotate {
+    margin-left: 65px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  body {
+    background-image: url("back_phone.png");
+  }
+  .spin-button {
+    position: absolute;
+    margin-left: 0px;
+    padding-top: 275px;
+  }
+
+  #rotate {
+    margin-left: 0px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.curve {
+  transform-style: preserve-3d;
+  border: 5px solid #e600e2;
+  border-radius: 100%;
+  height: 250px;
+  width: 30px;
+  margin-top: -85px;
+  box-shadow: 0 0 0 4px #2916b4;
+}
+
+.triangle {
+  margin-top: 25px;
+  height: 35px;
+  width: 31px;
+  z-index: 1;
+}
+
+.triangle_left {
+  margin-right: -19px;
+  background-image: url("left_triangle.png");
+  background-size: cover;
+}
+
+.triangle_right {
+  margin-left: -21px;
+  background-image: url("right_triangle.png");
+  background-size: cover;
+}
+
+.left {
+  margin-right: -5px;
+}
+
+.right {
+  margin-left: -5px;
+}
+
+.win-message-container {
+  margin: 0 auto;
+  position: relative;
+  align-items: center;
+}
+
+.win-message {
+  padding: 6px 40px 6px;
+  font-family: Rubik, sans-serif;
+  font-size: 15px;
+  color: white;
+  border: 2px solid #e600e2;
+  border-radius: 12px;
+  box-shadow: inset 0 0 8px #d477f0, 0 0 8px #d477f0;
+}
+
+.win-text {
+  font-family: Rubik, sans-serif;
+  font-size: 15px;
+  color: rgb(190, 61, 204);
+}
+
+.win-window {
+  background-color: #191C24;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 75%;
+  height: 75%;
+  text-align: center;
+  border-radius: 15px;
+  z-index: 2;
+}
+
+.win-image {
+  width: 60%;
+  height: 40%;
+  border-radius: 15px;
+}
+
+.close-btn {
+  text-decoration: underline;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+  text-shadow: 0 0 8px #ffcdde;
+}
+
+
+.window-headers {
+  font-family: Rubik, sans-serif;
+  color: whitesmoke;;
+}
+
+.greeting-message {
+  padding: 6px 40px 6px;
+  font-family: Rubik, sans-serif;
+  font-size: 15px;
+  color: white;
+  border: 2px solid #7b9aff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 8px #7b9aff, 0 0 8px #7b9aff;
+}
+
+.count-spins-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  background-color: #00000082;
+  padding-top: 10px;
+}
+
+.count-spins {
+  font-family: Rubik, sans-serif;
+  font-size: 15px;
+  color: white;
+}
+
+.count {
+  font-family: Rubik, sans-serif;
+  font-size: 15px;
+  color: rgb(124, 93, 249);
+}
+
+#stage {
+  margin: 0 auto;
+  width: 700px;
+  padding: 0 0 40px;
+  position: relative;
+}
+
+.perspective-on {
+  -webkit-perspective: 1000px;
+     -moz-perspective: 1000px;
+          perspective: 1000px;    /* Setting the perspective of the contents of the stage but not the stage itself*/
+}
+.perspective-off {
+  -webkit-perspective: 0;
+     -moz-perspective: 0;
+          perspective: 0;
+}
+
+#rotate {
+  margin: 0 auto 0;
+  width: 100%;
+  height: 220px;
+  padding-top: 150px;
+  padding-bottom: 50px;
+  
+  /* Ensure that we're in 3D space */
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+}
+
+.ring {
+  margin: 0 auto;
+  height: 80px;
+  width: 90px;
+  float: left;
+  margin: 6px;
+  transform-style: preserve-3d;
+
+}
+.slot {
+  position: absolute;
+  width: 90px;
+  height: 80px;
+  box-sizing: border-box;
+  color: rgba(0,0,0,0.9);
+  background: #fff;
+  border: solid 2px #000;
+  border-radius: 5%;
+  background-image: radial-gradient(circle, #76339eed 5%, #231027 100%, #cf94e6);
+
+  -webkit-backface-visibility: visible;
+     -moz-backface-visibility: visible;
+          backface-visibility: visible;
+}
+
+.num {
+  color: transparent;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #f8bbf5;
+  overflow-wrap: normal;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 45px;
+  font-weight: 100;
+  line-height: 80px;
+  opacity: 1;
+  outline-offset: 0px;
+  text-shadow: 0px 0px 15px #c4099cd3, 0px 0px 15px #c4099cc8;
+  outline: 3px solid;
+}
+
+.num-7 {
+  color: transparent;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #fa7878;
+  overflow-wrap: normal;
+  font-family: Ultra, serif;
+  font-size: 45px;
+  font-weight: 100;
+  line-height: 80px;
+  opacity: 1;
+  outline-offset: 0px;
+  text-shadow: 0px 0px 15px #c4090ccc, 0px 0px 15px #c40909d1;
+  outline: 3px solid;
+}
+
+.backface-on {
+  -webkit-backface-visibility: visible;
+     -moz-backface-visibility: visible;
+          backface-visibility: visible;
+}
+
+.slot p {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 80px;
+  margin: 0;
+  text-align: center;
+}
+
+.go {
+  border-radius: 100%;
+  cursor: pointer;
+  width: 72px;
+  height: 72px;
+  margin-top: -20px;
+  background-image: url("spin_reels.png"), linear-gradient(#FF3399 0%, #9933FF 100%);
+  background-size: 28px 28px, 100%, 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.go:hover {
+  background-image: url("spin_reels.png"), linear-gradient(#f94fa4 0%, #a65af2 100%);
+  background-size: 28px 28px, 100%, 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+/* .spin-reels {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  z-index: 1;
+} */
+
+label {
+  cursor: pointer;
+  display: inline-block;
+  width: 45%;
+  text-align: center;
+}
+.tilted {
+  transform: rotateY(45deg);
+}
+/*=====*/
+.spin-0     { transform: rotateX(-3601deg); }
+.spin-1     { transform: rotateX(-3637deg); }
+.spin-2     { transform: rotateX(-3673deg); }
+.spin-3     { transform: rotateX(-3709deg); }
+.spin-4     { transform: rotateX(-3745deg); }
+.spin-5     { transform: rotateX(-3781deg); }
+.spin-6     { transform: rotateX(-3816deg); }
+.spin-7     { transform: rotateX(-3852deg); }
+.spin-8     { transform: rotateX(-3888deg); }
+.spin-9     { transform: rotateX(-3925deg); }
+/*=====*/
+@keyframes back-spin {
+    /*0%    { transform: rotateX(0deg); }*/
+    100%  { transform: rotateX(30deg); }
+}
+@keyframes tiltin {
+    0%    { transform: rotateY(0deg);}
+    50%   { transform: rotateY(0deg);}
+    100%  { transform: rotateY(45deg);}
+}
+@keyframes tiltout {
+    0%    { transform: rotateY(45deg);}
+    100%  { transform: rotateY(0deg);}
+}
+
+@keyframes spin-0 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3601deg); }
+}
+@keyframes spin-1 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3637deg); }
+}
+@keyframes spin-2 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3673deg); }
+}
+@keyframes spin-3 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3709deg); }
+}
+@keyframes spin-4 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3745deg); }
+}
+@keyframes spin-5 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3781deg); }
+}
+@keyframes spin-6 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3816deg); }
+}
+@keyframes spin-7 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3852deg); }
+}
+@keyframes spin-8 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3888deg); }
+}
+@keyframes spin-9 {
+    0%    { transform: rotateX(30deg); }
+    100%  { transform: rotateX(-3925deg); }
+}
