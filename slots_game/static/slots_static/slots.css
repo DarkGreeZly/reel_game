@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ultra&display=swap');
 html {
+  margin: 0;
   height: 100%;
 }
 
@@ -16,6 +17,15 @@ html {
 
   #rotate {
     margin-left: 65px;
+    width: 100%;
+  }
+  #stage {
+    width: 700px;
+  }
+  .win-message-container {
+    margin: 0 auto;
+    position: relative;
+    align-items: center;
   }
 }
 
@@ -31,6 +41,13 @@ html {
 
   #rotate {
     margin-left: 0px;
+  }
+  .win-message-container {
+    width: 55%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
   }
 }
 
@@ -175,7 +192,6 @@ body {
 
 #stage {
   margin: 0 auto;
-  width: 700px;
   padding: 0 0 40px;
   position: relative;
 }
@@ -193,7 +209,6 @@ body {
 
 #rotate {
   margin: 0 auto 0;
-  width: 100%;
   height: 220px;
   padding-top: 150px;
   padding-bottom: 50px;
