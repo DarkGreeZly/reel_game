@@ -5,6 +5,20 @@ html {
   height: 100%;
 }
 
+.ct-animate-zoom {
+    animation: zoom_image;
+}
+
+@keyframes zoom_image {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
 @media (min-width: 992px) {
   body {
     background-image: url("back_pc.png");
@@ -24,12 +38,14 @@ html {
     padding-bottom: 50px;
   }
   #stage {
+    margin: 0 auto;
     width: 700px;
     padding: 0 0 40px;
   }
   .win-message-container {
-    margin: 0 auto;
-    position: relative;
+    margin-left: 34%;
+    margin-top: -30%;
+    height: 50px;
     align-items: center;
   }
 }
@@ -37,6 +53,9 @@ html {
 @media (max-width: 991.98px) {
   body {
     background-image: url("back_phone.png");
+  }
+  .win-window {
+    transform: scale(0.7);
   }
   .spin-button {
     position: absolute;
@@ -48,19 +67,15 @@ html {
     margin-left: 0px;
   }
   .win-message-container {
-    width: 55%;
-    position: relative;
+    margin-left: 17%;
+    width: 70%;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    transform: scale(0.7);
+    margin-top: -105%;
   }
   #stage {
-    transform: scale(0.7);
+    transform: scale(0.9);
     padding: 80px 0 40px;
-  }
-  .win-window {
-    transform: scale(0.7);
   }
 }
 
@@ -114,8 +129,7 @@ body {
 }
 
 .win-message-container {
-  margin: 0 auto;
-  position: relative;
+  position: absolute;
   align-items: center;
 }
 
@@ -145,6 +159,22 @@ body {
   text-align: center;
   border-radius: 15px;
   z-index: 2;
+}
+
+.current {
+  animation: fade 400ms infinite;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .win-image {
@@ -193,18 +223,17 @@ body {
 
 .count-spins {
   font-family: Rubik, sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   color: white;
 }
 
 .count {
   font-family: Rubik, sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   color: rgb(124, 93, 249);
 }
 
 #stage {
-  margin: 0 auto;
   position: relative;
 }
 
@@ -220,7 +249,7 @@ body {
 }
 
 #rotate {
-  margin: 0 auto 0;
+  margin: auto;
   
   /* Ensure that we're in 3D space */
   transform-style: preserve-3d;
@@ -243,10 +272,8 @@ body {
   height: 80px;
   box-sizing: border-box;
   color: rgba(0,0,0,0.9);
-  background: #fff;
-  border: solid 2px #000;
   border-radius: 5%;
-  background-image: radial-gradient(circle, #76339eed 5%, #231027 100%, #cf94e6);
+  background: linear-gradient(to right, #230f27 5%, #77339e 50%, #230f27 97%);
 
   -webkit-backface-visibility: visible;
      -moz-backface-visibility: visible;
@@ -290,7 +317,7 @@ body {
 }
 
 .slot p {
-  font-size: 36px;
+  font-size: 50px;
   font-weight: bold;
   line-height: 80px;
   margin: 0;
@@ -400,3 +427,4 @@ label {
     0%    { transform: rotateX(30deg); }
     100%  { transform: rotateX(-3925deg); }
 }
+

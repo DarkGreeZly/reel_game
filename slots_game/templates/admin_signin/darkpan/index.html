@@ -10,7 +10,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href={% static "adm_panel/img/favicon.ico" %} rel="icon">
+    <link rel="icon" type="icon/png" href="https://img.icons8.com/?size=100&id=AHcyfqTtWcRI&format=png&color=000000">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -491,16 +491,52 @@
     <!-- Template Javascript -->
     <script src={% static "adm_panel/js/main.js" %}></script>
     <script>
+	function fallbackCopyTextToClipboard(text) {
+		var textArea = document.createElement("textarea");
+		textArea.value = text;
+		
+		// Avoid scrolling to bottom
+		textArea.style.top = "0";
+		textArea.style.left = "0";
+		textArea.style.position = "fixed";
+	  
+		document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
+	  
+		try {
+		  var successful = document.execCommand('copy');
+		  var msg = successful ? 'successful' : 'unsuccessful';
+		  console.log('Fallback: Copying text command was ' + msg);
+		} catch (err) {
+		  console.error('Fallback: Oops, unable to copy', err);
+		}
+	  
+		document.body.removeChild(textArea);
+	  }
+	  function copyTextToClipboard(text) {
+		if (!navigator.clipboard) {
+		  fallbackCopyTextToClipboard(text);
+		  return;
+		}
+		navigator.clipboard.writeText(text).then(function() {
+		  console.log('Async: Copying to clipboard was successful!');
+		}, function(err) {
+		  console.error('Async: Could not copy text: ', err);
+		});
+	}
         $('#generate_btn').on('click', function () {
             console.log("clicked")
             $.ajax({
                 type: 'GET',
                 url: 'generate_url/',
+		async: false,
                 success: function (response){
                     $('#generated_url').val("");
-                    $('#generated_url').val("http://127.0.0.1:8000/slots/" + response);
+                    $('#generated_url').val("digitsgames.com/slots/" + response);
                 }
             });
+	    copyTextToClipboard($('#generated_url').val());
         });
     </script>
 </body>

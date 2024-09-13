@@ -23,10 +23,10 @@ function createSlots (ring) {
 		// setup the number to show inside the slots
 		// the position is randomized to 
 		if (seed != 7){
-			var content = $(slot).append('<p class="num">' + (seed)+ '</p>');
+			var content = $(slot).append('<p class="num ' + (ring.attr('id').match(/\d+/)[0]) + (seed) + '">' + (seed)+ '</p>');
 		}
 		else {
-			var content = $(slot).append('<p class="num-7">7</p>');
+			var content = $(slot).append('<p class="num-7 ' + (ring.attr('id').match(/\d+/)[0]) + '">7</p>');
 		}
 		
 
@@ -38,22 +38,31 @@ function createSlots (ring) {
 
 async function prize_game(){
 	let count_of_prize_spins = 7;
-	$('.win-text').text("Призова гра");
-	$('.win-message').css("opacity", "");
 	$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
 	$('.greeting-message').css("opacity", "");
 	$('.go').css("opacity", "0");
 	$('.go').prop("disabled", true)
 	while(count_of_prize_spins != 0) {
+		$('.win-message').css("opacity", "0");
+		$('.win-text').text("Призова гра");
+		$('.win-message').css("opacity", "");
 		let seeds = [];
 		for(var j = 1; j < 4; j ++) {
+			var oldSeed = -1;
+			var oldClass = $('#ring'+j).attr('class');
+			if(oldClass.length > 4) {
+				oldSeed = parseInt(oldClass.slice(10));
+				// console.log("oldseed: " + oldSeed);
+			}
 			var seed = getSeed();
+			while(oldSeed == seed) {
+				seed = getSeed();
+			}
 			seeds.push(seed);
 			$('#ring'+j)
-				.css('animation','back-spin 1s, spin-' + seed + ' ' + (2 + j*0.5) + 's')
+				.css('animation','back-spin 1s, spin-' + seed + ' ' + (1 + j*0.5) + 's')
 				.attr('class','ring spin-' + seed);
 		}
-		await new Promise(resolve => setTimeout(resolve, 4000));
 		console.log(count_of_prize_spins);
 		count_of_prize_spins -= 1;
 		$('.greeting-message').css("opacity", "0");
@@ -61,27 +70,134 @@ async function prize_game(){
 		$('.greeting-message').css("opacity", "");
 		// seeds = seeds.join('');
 		if(seeds.filter(x => x === '7').length === 2) {
-			count_of_prize_spins += 7;
-			$('.greeting-message').css("opacity", "0");
-			$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
-			$('.greeting-message').css("opacity", "");
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+				count_of_prize_spins += 7;
+				$('.greeting-message').css("opacity", "0");
+				$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
+				$('.greeting-message').css("opacity", "");
+			}, 2500);
 		}
-		else if(new Set(seeds).length === 1) {
-			count_of_prize_spins += 7;
-			$('.greeting-message').css("opacity", "0");
-			$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
-			$('.greeting-message').css("opacity", "");
+		else if(new Set(seeds).size === 1) {
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+				if (seeds.includes('7')) {
+					// console.log("WIN!!! Main gift");
+					$('.win-text').text("головний приз");
+					setTimeout(function () {
+						$('.win-message').css("opacity", "");
+					}, 2500);
+					setTimeout(function () {
+						$('.win-message-container').css("opacity", "0");
+						$('#stage').css("opacity", "0");
+						$('.win-window').show();
+					}, 4000);
+				}
+				else {
+					count_of_prize_spins += 7;
+					$('.greeting-message').css("opacity", "0");
+					$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
+					$('.greeting-message').css("opacity", "");
+				}
+			}, 2500);
 		}
 		else if (seeds.includes('7') && (seeds[0] === seeds[1] || seeds[1] === seeds[2] || seeds[2] === seeds[0])) {
-			count_of_prize_spins += 7;
-			$('.greeting-message').css("opacity", "0");
-			$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
-			$('.greeting-message').css("opacity", "");
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+				count_of_prize_spins += 7;
+				$('.greeting-message').css("opacity", "0");
+				$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
+				$('.greeting-message').css("opacity", "");
+			}, 2500);
+		}
+		else if (seeds.includes('7')) {
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+				let count_spins = parseInt($('.count').text());
+				count_spins += 2;
+				$('.count').text(count_spins);
+			}, 2500);
 		}
 		else {
 			console.log("not match")
 		}
-		setTimeout(4000);
+		await new Promise(resolve => setTimeout(resolve, 3000));
 	}
 	$('.go').css("opacity", "");
 	$('.go').prop("disabled", false)
@@ -106,69 +222,180 @@ function spin(timer) {
 	$('.greeting-message').css("opacity", "0");
 	$('.win-message').css("opacity", "0");
 	let count_spins = $('.count').text();
-	console.log(count_spins);
 	if(count_spins > 0){
 		let seeds = [];
 		for(var i = 1; i < 4; i ++) {
-			// var oldSeed = -1;
+			var oldSeed = -1;
 			/*
 			checking that the old seed from the previous iteration is not the same as the current iteration;
 			if this happens then the reel will not spin at all
 			*/
-			// var oldClass = $('#ring'+i).attr('class');
-			// if(oldClass.length > 4) {
-			// 	oldSeed = parseInt(oldClass.slice(10));
-			// 	// console.log("oldseed: " + oldSeed);
-			// }
+			var oldClass = $('#ring'+i).attr('class');
+			if(oldClass.length > 4) {
+				oldSeed = parseInt(oldClass.slice(10));
+				// console.log("oldseed: " + oldSeed);
+			}
 			
 			var seed = getSeed();
-			// var seed = 7;
+			while(oldSeed == seed) {
+				seed = getSeed();
+			}
+			//seed = '7';
 			seeds.push(seed);
-			// while(oldSeed == seed) {
-			// 	seed = getSeed();
-			// }
 			// var seed = 0;
-			// console.log('seed:' + seed)
+			// console.log('seed type:' + typeof seed)
 			$('#ring'+i)
 				.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.5) + 's')
 				.attr('class','ring spin-' + seed);
 		}
+		
 		count_spins -= 1;
 		$('.count').text(count_spins);
-		seeds = seeds.join('');
-		if(seeds == '777'){
-			console.log("WIN!!! Main gift");
-			$('.win-text').text("головний приз");
+		if(seeds.filter(x => x === '7').length === 2) {
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+			}, 2500);
 			setTimeout(function () {
-				$('.win-message').css("opacity", "");
-			}, 4000);
-			setTimeout(function () {
-				$('.win-message-container').css("opacity", "0");
-				$('#stage').css("opacity", "0");
-				$('.win-window').show();
-			}, 5500);
+				prize_game();
+			}, 2500);
 		}
-		else if(seeds == '444' || seeds == '744' || seeds == '774' || seeds == '477' || seeds == '447') {
-			console.log("You get super game with 7 spins");
-			let count_of_prize_spins = 7;
-			// loopWithDelay(count_of_prize_spins);
-			prize_game();
-			// for(var i = 0; i < count_of_prize_spins; i ++) {
-				
-			// }
-				
-
+		else if(new Set(seeds).size === 1){
+			// console.log("WIN!!! Main gift");
+			if (seeds.includes('7')) {
+				$('.win-text').text("головний приз");
+				setTimeout(function () {
+					let temp = 1;
+					for (let seed of seeds){
+						if (seed == '7'){
+							$('.num-7.' + temp).addClass('current')
+						}
+						else {
+							console.log($('.num.' + temp + seed))
+							$('.num.' + temp + seed).addClass('current')
+						} 
+						temp += 1;
+					}
+					setTimeout(function() {
+						$('.num-7').attr('class', function(i, cls) {
+							return cls.replace(/\bcurrent\b/, '');
+						});
+						$('.num').attr('class', function(i, cls) {
+							return cls.replace(/\bcurrent\b/, '');
+						});
+					
+					}, 1000);
+					$('.win-message').css("opacity", "");
+				}, 2500);
+				setTimeout(function () {
+					$('.win-message-container').css("opacity", "0");
+					$('#stage').css("opacity", "0");
+					$('.win-window').show();
+				}, 4000);
+			}
+			else {
+				setTimeout(function () {
+					let temp = 1;
+					for (let seed of seeds){
+						if (seed == '7'){
+							$('.num-7.' + temp).addClass('current')
+						}
+						else {
+							$('.num.' + temp + seed).addClass('current')
+						} 
+						temp += 1;
+					}
+					setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+						});
+						$('.num').attr('class', function(i, cls) {
+							return cls.replace(/\bcurrent\b/, '');
+						});
+					
+					}, 1000);
+					prize_game();
+				}, 2500);
+			}
+		}
+		else if(seeds.includes('7') && (seeds[0] === seeds[1] || seeds[1] === seeds[2] || seeds[2] === seeds[0])){
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+				prize_game();
+			}, 2500);
 		}
 		else if(seeds.includes('7')) {
-			console.log("You get a 2 free spins");
+			setTimeout(function() {
+				let temp = 1;
+				for (let seed of seeds){
+					if (seed == '7'){
+						$('.num-7.' + temp).addClass('current')
+					}
+					else {
+						console.log($('.num.' + temp + seed))
+						$('.num.' + temp + seed).addClass('current')
+					} 
+					temp += 1;
+				}
+				setTimeout(function() {
+					$('.num-7').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					$('.num').attr('class', function(i, cls) {
+						return cls.replace(/\bcurrent\b/, '');
+					});
+					
+				}, 1000);
+			}, 2500);
+			// console.log("You get a 2 free spins");
 			count_spins += 2;
-			console.log(count_spins);
+			// console.log(count_spins);
 			
 			$('.win-text').text("2 спроби");
 			setTimeout(function () {
 				$('.count').text(count_spins);
 				$('.win-message').css("opacity", "");
-			}, 4000);
+			}, 2500);
+		}
+		else {
+			console.log("not match")
 		}
 	}
 	else {
@@ -184,7 +411,6 @@ async function loopWithDelay(count_of_prize_spins) {
 	for (var i = 0; i < count_of_prize_spins; i++) {
 	  await new Promise(resolve => setTimeout(resolve, 4000));
 	  console.log("prize game" + i);
-	  // do something else here
 	}
   }
 
@@ -192,9 +418,9 @@ async function loopWithDelay(count_of_prize_spins) {
 
 
 $(document).ready(function() {
-	$('.win-window').hide();
+	// $('.win-window').hide();
 	$('.win-message').css("opacity", "0");
-	$('.count').text('50');
+	$('.count').text('20');
 	// initiate slots 
  	createSlots($('#ring1'));
  	createSlots($('#ring2'));
@@ -202,7 +428,7 @@ $(document).ready(function() {
 
  	// hook start button
  	$('.go').on('click',function(){
- 		var timer = 2;
+ 		var timer = 1;
  		spin(timer);
  	})
 
