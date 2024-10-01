@@ -74,7 +74,6 @@
                             <span class="d-none d-lg-inline-flex">{{ username }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            {% comment %} <a href="#" class="dropdown-item">Settings</a> {% endcomment %}
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -90,8 +89,8 @@
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Сьогодні ігор</p>
-                                <h6 class="mb-0">1234</h6>
+                                <p class="mb-2">Кількість виграшів</p>
+                                <h6 class="mb-0">{{ count_wins }}</h6>
                             </div>
                         </div>
                     </div>
@@ -99,8 +98,8 @@
                         <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Всього ігор</p>
-                                <h6 class="mb-0">1234</h6>
+                                <p class="mb-2">Кількість ігор</p>
+                                <h6 class="mb-0">{{ count_games }}</h6>
                             </div>
                         </div>
                     </div>
@@ -108,10 +107,8 @@
             </div>
             <!-- Sale & Revenue End -->
 	    <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="d-flex bg-secondary rounded h-100 p-4">
-			<div class="nav-item dropdown w-40">
+            <div class="d-flex align-items-center bg-secondary rounded h-100 p-4">
+                        <div class="nav-item dropdown w-40">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                                 <span class="d-none d-lg-inline-flex selected-prize">Prizes</span>
                             </a>
@@ -123,9 +120,7 @@
                         </div>
                         <button class="btn btn-outline-primary w-50 m-2" type="button" id="generate_btn">Згенерувати</button>
                         <input class="form-control m-2" type="text" placeholder="Тимчасовий URL" id="generated_url" value="{{ this.url }}">
-                    </div>
-                </div>
-            </div>
+	    </div>
             <!-- Sales Chart End -->
         </div>
         <!-- Content End -->
@@ -183,8 +178,9 @@
 		  console.error('Async: Could not copy text: ', err);
 		});
 	}
-	$('.select-prize').on('click', function() {
-            $('.selected-prize').text($('.select-prize').text());
+	$('.select-prize').on('click', function(e) {
+            let selected_prize = e.target.textContent;
+            $('.selected-prize').text(selected_prize);
         });
         $('#generate_btn').on('click', function () {
             console.log("clicked")
