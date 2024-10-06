@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lobby</title>
+        <link rel="stylesheet" href={% static "slots_static/lobby.css" %}>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>        
+        <!-- <script src={% static "slots_static/slots.js" %}></script>  -->
+        <!--<link rel="stylesheet" href="/Users/mac/PycharmProjects/slots_game/gpt_slots_test/backend/reel_game/slots_game/static/slots_static/lobby.css"-->
+
+    </head>
+    <body>
+        <h1 class="main-title">Твій Портал Безкоштовних Призів</h1>
+        <div class="games-grid">
+            {% for prize in prizes %}
+                <div class="grid-item">
+                    <button class="service-btn game">
+                        <img src={% static 'slots_static/assets/'|add:prize|add:".png" %} alt="Button Image">
+                    </button>
+                </div>
+            {% endfor %}
+            <div class="info-window" style="display: none;">
+                <button id="close-btn" class="close-btn info-headers">
+                    <img src="https://cdn-icons-png.flaticon.com/512/9068/9068699.png" alt="" class="info-btn-img">
+                </button>
+                <div class="info-content"></div>
+            </div>
+        </div>
+        <script>
+            $('.service-btn.game').on('click', function() {
+                let button = $(this);
+                let imgSrc = button.find('img').attr('src');
+                let game_data = JSON.parse('{{ game_data | safe }}');
+                game_data.forEach(game => {
+                    if (imgSrc.includes(game.for_game)) {
+                        $('.info-content').empty();
+                        $('.info-content').append('<h1 class="info-headers">' + game.title + '</h1>');
+                        $('.info-content').append('<h3 class="info-headers">Головний приз:' + game.prize_name + '</h3>');
+                        $('.info-content').append('<h3 class="info-headers">Для участі в розіграші залиште коментар під дописом: <a class="info-headers" href="' + game.link + '">' + game.link + '</a></h3>');
+                    }
+                });
+                $(".info-window").show();
+            });
+            $('#close-btn').on('click', function() {
+                $(".info-window").hide();
+            });
+            
+
+        </script>
+    </body>
+</html>
