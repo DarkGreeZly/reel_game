@@ -13,13 +13,12 @@
     </head>
     <body>
     <div class="win-window" style="display: none;">
-        <h1 class="window-headers">WIN</h1> 
-        <img src={% static "slots_static/horns.png" %} alt="" class="win-image">
-        <h3 class="window-headers">Знижка 20% на рога</h3>
-        <h3 class="window-headers">Orginizer</h3>
-        <h3 class="window-headers">ТОВ Рога і копита</h3>
-        <h3 class="window-headers">Links</h3>
-        <button id="close-btn" class="close-btn window-headers">Close</button>
+        <img src="https://cdn-icons-png.flaticon.com/512/8610/8610932.png" alt="" class="win-image">
+        <h3 class="window-headers">{{ prize }}</h3>
+        <h3 class="window-headers">{{ promocode }}</h3>
+        <h3 class="window-headers">{{ company }}</h3>
+        <a class="window-headers" href={{ link }}>{{ link }}</a>
+        <button id="close-btn" class="close-btn window-headers">Закрити</button>
     </div>
     <div class="win-message-container">
         <span class="greeting-message">Приємної гри!</span>
@@ -35,8 +34,13 @@
             <div id="ring3" class="ring"></div>
             <div class="curve right"></div>
             <div class="triangle triangle_right"></div>
+	    {% csrf_token %}
             <div class="spin-button"><button class="go"></button></div>
         </div>
+    </div>
+    <div class="lose-window"  style="display: none;">
+        <h3 class="window-headers lose">Щоб отримати ще безкоштовні спроби залиште коментар під дописом:</h3>
+        <a class="window-headers lose" href={{ link }}>{{ link }}</a>
     </div>
     <div class="count-spins-container">
         <span class="count-spins">Кількість спроб: <span class="count"></span></span>
