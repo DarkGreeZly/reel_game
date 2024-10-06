@@ -150,15 +150,35 @@ body {
 }
 
 .win-window {
+  padding: 30px;
   background-color: #191C24;
   position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 75%;
-  height: 75%;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 600px;
+  height: auto;
   text-align: center;
   border-radius: 15px;
   z-index: 2;
+}
+
+.lose-window {
+  width: 400px;
+  height: auto;
+  padding: 8px;
+  background-color: #191C24;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  text-align: center;
+  border-radius: 15px;
+}
+
+.lose {
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .current {
@@ -178,9 +198,9 @@ body {
 }
 
 .win-image {
-  width: 60%;
-  height: 40%;
-  border-radius: 15px;
+  background-color: #191C24;
+  width: 250px;
+  height: 250px;
 }
 
 .close-btn {
