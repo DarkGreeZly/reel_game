@@ -14,15 +14,15 @@ class Counter(models.Model):
 
 class WinDiscription(models.Model):
     for_game = models.CharField(max_length=64, unique=True)
-    title = models.CharField(max_length=200, default=' ')
     prize_name = models.CharField(max_length=200, default=' ')
+    promocode = models.CharField(max_length=200, default=' ')
     company = models.CharField(max_length=200, default=' ')
     link = models.CharField(max_length=200, default=' ')
 
 
 class LobbyDiscription(models.Model):
     for_game = models.CharField(max_length=64, unique=True)
+    title = models.CharField(max_length=200, default=' ')
     prize_name = models.CharField(max_length=200, default=' ')
-    promocode = models.CharField(max_length=200, default=' ')
     company = models.CharField(max_length=200, default=' ')
     link = models.CharField(max_length=200, default=' ')
