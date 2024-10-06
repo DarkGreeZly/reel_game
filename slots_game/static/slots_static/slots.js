@@ -121,7 +121,7 @@ async function prize_game(){
 				}, 1000);
 				if (seeds.includes('7')) {
 					// console.log("WIN!!! Main gift");
-					$('.win-text').text("головний приз");
+					$('.win-text').text("Головний приз");
 					setTimeout(function () {
 						$('.win-message').css("opacity", "");
 					}, 2500);
@@ -130,6 +130,20 @@ async function prize_game(){
 						$('#stage').css("opacity", "0");
 						$('.win-window').show();
 					}, 4000);
+					var csrfToken = $.cookie('csrftoken');
+					var data = { message: 'win' };
+					$.ajax({
+						type: "POST",
+						url: "counter/",
+						data: JSON.stringify(data),
+						contentType: 'application/json',
+						headers: {
+							'X-CSRFToken': csrfToken
+						},
+						success: function(response) {
+							console.log(response);
+						}
+					});
 				}
 				else {
 					count_of_prize_spins += 7;
@@ -219,6 +233,8 @@ function getSeed() {
 }
 
 function spin(timer) {
+	var data = { message: 'game' };
+	var csrfToken = $.cookie('csrftoken');
 	$('.greeting-message').css("opacity", "0");
 	$('.win-message').css("opacity", "0");
 	let count_spins = $('.count').text();
@@ -310,6 +326,19 @@ function spin(timer) {
 					$('#stage').css("opacity", "0");
 					$('.win-window').show();
 				}, 4000);
+				data = { message: 'win' };
+				$.ajax({
+					type: "POST",
+					url: "counter/",
+					data: JSON.stringify(data),
+					contentType: 'application/json',
+					headers: {
+						'X-CSRFToken': csrfToken
+					},
+					success: function(response) {
+						console.log(response);
+					}
+				});
 			}
 			else {
 				setTimeout(function () {
@@ -397,9 +426,23 @@ function spin(timer) {
 		else {
 			console.log("not match")
 		}
+		data = { message: 'game' };
+		$.ajax({
+			type: "POST",
+			url: "counter/",
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			headers: {
+				'X-CSRFToken': csrfToken
+			},
+			success: function(response) {
+				console.log(response);
+			}
+		});
 	}
 	else {
 		alert("You have no more spins left!");
+		$(".lose-window").show();
 	}
 	//var txt = 'seeds: ';
 	
