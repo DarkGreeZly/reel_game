@@ -49,6 +49,7 @@ def admin_page(request):
     try:
         return render(request, "../templates/admin_signin/darkpan/index.html", {'username': username, 'prizes': list(prizes), 'count_wins': count_wins[-1], 'count_games': count_games[-1]})
     except:
+        print('failed login')
         return redirect('login')
 
 def sign_in(request):

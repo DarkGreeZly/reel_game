@@ -15,9 +15,12 @@
 }
 
 .select-prize {
-    color: #f0f4f5 !important;
+    color: #bc1212 !important;
 }
 
+.dropdown-item:hover {
+    background-color: #212b35a6 !important;
+}
 
 /*** Spinner ***/
 #spinner {
