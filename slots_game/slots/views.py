@@ -7,6 +7,12 @@ import uuid, secrets, json
 from .models import OneTimeLinkModel, Game_Settings, Counter, WinDiscription, LobbyDiscription
 
 
+def index(request):
+    prizes = Game_Settings.objects.values_list('prize_name', flat=True)
+    lobby_data = LobbyDiscription.objects.values()
+    return render(request, "../templates/slots_template/lobby.html", {'prizes': list(prizes), 'game_data': json.dumps(list(lobby_data))})
+
+
 def game_name_validator(game_name):
     prizes = list(Game_Settings.objects.values_list('prize_name', flat=True))
     if game_name in prizes:
@@ -16,9 +22,7 @@ def game_name_validator(game_name):
 
 
 def slots_web(request, access_code, game_name):
-    prizes = Game_Settings.objects.values_list('prize_name', flat=True)
     data = WinDiscription.objects.values()
-    lobby_data = LobbyDiscription.objects.values()
     if game_name_validator(game_name):
         if OneTimeLinkModel.objects.filter(onetime_url=access_code).exists():
             OneTimeLinkModel.objects.filter(onetime_url=access_code).delete()
@@ -26,9 +30,9 @@ def slots_web(request, access_code, game_name):
                 if game_headers['for_game'] == game_name:
                     return render(request, "../templates/slots_template/slots.html", {'prize': game_headers['prize_name'], 'promocode': game_headers['promocode'], 'company': game_headers['company'], 'link': game_headers['link']})
         else:
-            return render(request, "../templates/slots_template/lobby.html", {'prizes': list(prizes), 'game_data': json.dumps(list(lobby_data))})
+            return redirect('index')
     else:
-            return render(request, "../templates/slots_template/lobby.html", {'prizes': list(prizes), 'game_data': json.dumps(list(lobby_data))})
+            return redirect('index')
     
 
 def slots_game(request, access_code, game_name):
