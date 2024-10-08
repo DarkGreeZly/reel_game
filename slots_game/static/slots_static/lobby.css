@@ -19,6 +19,13 @@ body {
     font-size: 14px !important;
     word-wrap: break-word;
   }
+  .service-btn {
+    width: 170px !important;
+    height: 170px !important;
+  }
+  .games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+  }
 }
 
 .service-btn {

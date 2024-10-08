@@ -233,6 +233,8 @@ function getSeed() {
 }
 
 function spin(timer) {
+	$('.go').css("opacity", "0");
+	$('.go').prop("disabled", true);
 	var data = { message: 'game' };
 	var csrfToken = $.cookie('csrftoken');
 	$('.greeting-message').css("opacity", "0");
@@ -446,7 +448,10 @@ function spin(timer) {
 	}
 	//var txt = 'seeds: ';
 	
-
+	setTimeout(function () {
+		$('.go').css("opacity", "1");
+		$('.go').prop("disabled", false);
+	}, 2500);
 	console.log('=====');
 }
 

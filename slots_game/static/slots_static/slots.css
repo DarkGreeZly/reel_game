@@ -48,6 +48,12 @@ html {
     height: 50px;
     align-items: center;
   }
+  .win-window {
+    width: 600px;
+  }
+  .lose-window {
+    width: 400px;
+  }
 }
 
 @media (max-width: 991.98px) {
@@ -76,6 +82,15 @@ html {
   #stage {
     transform: scale(0.9);
     padding: 80px 0 40px;
+  }
+  .win-window {
+    transform: scale(1);
+    width: 300px;
+    word-wrap: break-word;
+  }
+  .lose-window {
+    width: 300px;
+    word-wrap: break-word;
   }
 }
 
@@ -156,15 +171,28 @@ body {
   top: 20%;
   left: 50%;
   transform: translate(-50%);
-  width: 600px;
   height: auto;
   text-align: center;
   border-radius: 15px;
   z-index: 2;
 }
 
+.close-btn {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  background-color: transparent;
+  border: none;
+  width: 40px;
+}
+
+
+.info-btn-img {
+  width: 100%;
+  height: 100%;
+}
+
 .lose-window {
-  width: 400px;
   height: auto;
   padding: 8px;
   background-color: #191C24;
@@ -203,12 +231,6 @@ body {
   height: 250px;
 }
 
-.close-btn {
-  text-decoration: underline;
-  font-size: 20px;
-  background-color: transparent;
-  border: none;
-}
 
 .close-btn:hover {
   cursor: pointer;

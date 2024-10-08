@@ -14,12 +14,14 @@
     </head>
     <body>
     <div class="win-window" style="display: none;">
+	<button id="close-btn" class="close-btn info-headers">
+            <img src="https://cdn-icons-png.flaticon.com/512/9068/9068699.png" alt="" class="info-btn-img">
+        </button>
         <img src="https://cdn-icons-png.flaticon.com/512/8610/8610932.png" alt="" class="win-image">
         <h3 class="window-headers">{{ prize }}</h3>
         <h3 class="window-headers">{{ promocode }}</h3>
         <h3 class="window-headers">{{ company }}</h3>
         <a class="window-headers" href={{ link }}>{{ link }}</a>
-        <button id="close-btn" class="close-btn window-headers">Закрити</button>
     </div>
     <div class="win-message-container">
         <span class="greeting-message">Приємної гри!</span>
