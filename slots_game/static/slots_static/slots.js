@@ -40,8 +40,6 @@ async function prize_game(){
 	let count_of_prize_spins = 7;
 	$('.greeting-message').text("Призові спроби: " + count_of_prize_spins)
 	$('.greeting-message').css("opacity", "");
-	$('.go').css("opacity", "0");
-	$('.go').prop("disabled", true)
 	while(count_of_prize_spins != 0) {
 		$('.win-message').css("opacity", "0");
 		$('.win-text').text("Призова гра");
@@ -324,6 +322,8 @@ function spin(timer) {
 					$('.win-message').css("opacity", "");
 				}, 2500);
 				setTimeout(function () {
+					$('.go').css("opacity", "1");
+					$('.go').prop("disabled", false);
 					$('.win-message-container').css("opacity", "0");
 					$('#stage').css("opacity", "0");
 					$('.win-window').show();
@@ -421,11 +421,17 @@ function spin(timer) {
 			
 			$('.win-text').text("2 спроби");
 			setTimeout(function () {
+				$('.go').css("opacity", "1");
+				$('.go').prop("disabled", false);
 				$('.count').text(count_spins);
 				$('.win-message').css("opacity", "");
 			}, 2500);
 		}
 		else {
+			setTimeout(function () {
+				$('.go').css("opacity", "1");
+				$('.go').prop("disabled", false);
+			}, 2500);
 			console.log("not match")
 		}
 		data = { message: 'game' };
@@ -447,11 +453,6 @@ function spin(timer) {
 		$(".lose-window").show();
 	}
 	//var txt = 'seeds: ';
-	
-	setTimeout(function () {
-		$('.go').css("opacity", "1");
-		$('.go').prop("disabled", false);
-	}, 2500);
 	console.log('=====');
 }
 
